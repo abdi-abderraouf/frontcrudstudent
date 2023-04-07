@@ -33,7 +33,7 @@ class CreateStudent extends Component {
 
   };
 
-  onSubmit = e => {
+  /*onSubmit = e => {
     e.preventDefault();
     // eslint-disable-next-line no-undef
    /* const data1 = new Formdata();
@@ -42,7 +42,7 @@ class CreateStudent extends Component {
     data1.append('inscription',e.target.value);
     data1.append('file',e.target.files[0]);
       */
-    const data = {
+    /*const data = {
       name: this.state.name,
       email: this.state.email,
       inscription: this.state.inscription,
@@ -52,8 +52,10 @@ class CreateStudent extends Component {
 
     axios
       .post('https://backendstudentscrud.onrender.com/students', data)
+             
       .then(res => {
-        this.setState({
+        console.log(res) ;
+          this.setState({
           name: '',
           email:'',
           inscription:'',
@@ -64,8 +66,28 @@ class CreateStudent extends Component {
       .catch(err => {
         console.log("Error in CreateStudent!");
       })
-  };
+  };*/
 
+  onSubmit = e => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    axios
+      .post('https://backendstudentscrud.onrender.com/students', data)
+      .then(res => {
+        console.log(res);
+        this.setState({
+          name: '',
+          email: '',
+          inscription: '',
+          photo: ''
+        });
+        this.props.history.push('/');
+      })
+      .catch(err => {
+        console.log("Error in CreateStudent!");
+      });
+  };
+  
   render() {
     return (
       <div className="CreateStudent">
